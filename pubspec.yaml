@@ -1,8 +1,8 @@
 name: router
 description: a router including a register method, natgation method.
 version: 0.0.1
-author:
-homepage:
+homepage: https://www.cullen.ml/
+repository: https://github.com/keyskull/router
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get_it: ^5.0.4
+  get_it: ^5.0.6
 
 
 dev_dependencies:
