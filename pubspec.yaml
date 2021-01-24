@@ -1,7 +1,7 @@
-name: router
+name: a_router
 description: a router including a register method, natgation method.
-version: 0.0.1
-homepage: https://www.cullen.ml/
+version: 0.0.2
+homepage: https://www.cullen.ml/#/
 repository: https://github.com/keyskull/router
 
 environment:
