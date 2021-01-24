@@ -20,8 +20,8 @@ class Router {
 
   Router() {
     _locator.registerLazySingleton(() => _NavigationService());
-    _RouteRegister.register('unknown', _RouteSetting.page.unknownError);
-    _RouteRegister.register('no_path', _RouteSetting.page.noPathError);
+    _RouteRegister.singlePageRegister('unknown', _RouteSetting.page.unknownError);
+    _RouteRegister.singlePageRegister('no_path', _RouteSetting.page.noPathError);
   }
 
   Route<dynamic> generateRoute(RouteSettings settings) {

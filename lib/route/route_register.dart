@@ -4,7 +4,7 @@ part of '../router.dart';
 class _RouteRegister{
   static final Map<String, Widget Function() > _routeTable = Map();
 
-  static register(String name, Widget Function() function){
+  static singlePageRegister(String name, Widget Function() function){
       _routeTable[name] = function;
   }
 
