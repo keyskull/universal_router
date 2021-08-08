@@ -1,6 +1,6 @@
-# router
+# router_package
 
-a router including a register method and navigating method.
+A Flutter router package.
 
 ## Getting Started
 
