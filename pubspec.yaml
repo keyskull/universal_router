@@ -1,4 +1,4 @@
-name: router
+name: flutter_universal_router
 description: A Flutter router package.
 version: 0.1.0+1
 author: Cullen Lee<cullenlee@numflurry.ml>
@@ -11,7 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  utilities:
+    #        git:
+    #          url: https://github.com/NumFlurry/numflurry.github.io.git
+    #          path: utilities
+    #          ref: main
+    path: ../utilities
 #dash-overflow.net
   provider: ^5.0.0
 
