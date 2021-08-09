@@ -1,10 +1,4 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-
-// import 'package:flutter/services.dart';
-import 'route.dart';
-
+part of 'route.dart';
 // import 'package:firebase_integration/firebase.dart';
 
 class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {

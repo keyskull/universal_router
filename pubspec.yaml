@@ -1,7 +1,6 @@
 name: flutter_universal_router
 description: A Flutter router package.
-version: 0.1.0+1
-author: Cullen Lee<cullenlee@numflurry.ml>
+version: 0.1.5
 homepage: https://numflurry.ml
 
 environment:
@@ -11,12 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   utilities:
-    #        git:
-    #          url: https://github.com/NumFlurry/numflurry.github.io.git
-    #          path: utilities
-    #          ref: main
     path: ../utilities
+
 #dash-overflow.net
   provider: ^5.0.0
 
@@ -24,6 +21,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  logger: ^1.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

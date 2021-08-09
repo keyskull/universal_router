@@ -1,9 +1,4 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'route.dart';
+part of 'route.dart';
 
 class PathHandler extends ChangeNotifier {
   String _routeName = "";

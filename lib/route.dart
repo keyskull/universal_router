@@ -1,12 +1,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import 'init_router_base.dart';
 import 'pages/async_loading_page.dart';
-import 'route_data.dart';
 
+part 'path_handler.dart';
+part 'route_data.dart';
+part 'route_information_parser.dart';
 part 'route_path.dart';
+part 'router_delegate.dart';
 
 final GlobalKey<NavigatorState> globalNavigatorKey =
     GlobalKey<NavigatorState>();
