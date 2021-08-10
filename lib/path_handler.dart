@@ -1,13 +1,15 @@
 part of 'route.dart';
 
 class PathHandler extends ChangeNotifier {
+  final logger = Logger(printer: CustomLogPrinter('PathHandler'));
+
   String _routeName = "";
 
   get routeName => _routeName;
 
   void changePath(String path) {
     _routeName = path;
-    log('routeName:' + routeName, name: 'ml.cullen.router.PathHandler');
+    logger.d('routeName:' + routeName);
     final routePathInstance = RoutePath(routeName: path).getRouteInstance;
     SystemChrome.setApplicationSwitcherDescription(
         ApplicationSwitcherDescription(

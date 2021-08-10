@@ -4,26 +4,24 @@ part of 'route.dart';
 Map<String, Function(RoutePath routePath)> _routePathListeners = {};
 
 class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {
+  final logger =
+      Logger(printer: CustomLogPrinter('RouteInformationParserInherit'));
+
   @override
   Future<RoutePath> parseRouteInformation(
       RouteInformation routeInformation) async {
-    log('routeInformation.location = ' + (routeInformation.location ?? '/'),
-        name: 'ml.cullen.router.RouteInformationParserInherit');
+    logger
+        .d('routeInformation.location = ' + (routeInformation.location ?? '/'));
     return RoutePath(routeName: routeInformation.location ?? '/');
   }
 
   @override
   RouteInformation restoreRouteInformation(RoutePath routePath) {
-    log('restoreRouteInformation = ' + routePath.routeName,
-        name: 'ml.cullen.router.RouteInformationParserInherit');
-    log(
-        'routePath.getRouteInstance.getRouteInformation().location = ' +
-            (routePath.getRouteInstance.getRouteInformation().location ?? ''),
-        name: 'ml.cullen.router.RouteInformationParserInherit');
-    log(
-        'routePath.getRouteInstance.getRouteInformation().state = ' +
-            routePath.getRouteInstance.getRouteInformation().state.toString(),
-        name: 'ml.cullen.router.RouteInformationParserInherit');
+    logger.d('restoreRouteInformation = ' + routePath.routeName);
+    logger.d('routePath.getRouteInstance.getRouteInformation().location = ' +
+        (routePath.getRouteInstance.getRouteInformation().location ?? ''));
+    logger.d('routePath.getRouteInstance.getRouteInformation().state = ' +
+        routePath.getRouteInstance.getRouteInformation().state.toString());
 
     _routePathListeners.values.map((e) => e(routePath));
     // FirebaseIntegration.firebaseAnalytics

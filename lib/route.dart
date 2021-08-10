@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:utilities/custom_log_printer.dart';
 
 import 'init_router_base.dart';
 import 'pages/async_loading_page.dart';
@@ -12,6 +14,8 @@ part 'route_data.dart';
 part 'route_information_parser.dart';
 part 'route_path.dart';
 part 'router_delegate.dart';
+
+final routerLogger = Logger(printer: CustomLogPrinter('Router'));
 
 final GlobalKey<NavigatorState> globalNavigatorKey =
     GlobalKey<NavigatorState>();
@@ -35,11 +39,15 @@ setNavigationLayer(
             newNavigationLayer) =>
     _navigationLayer = newNavigationLayer;
 
-addRoutePathListeners(dynamic Function(RoutePath) function) =>
-    _routePathListeners[function.hashCode.toString()] = function;
+addRoutePathListeners(dynamic Function(RoutePath) function) {
+  _routePathListeners[function.hashCode.toString()] = function;
+  routerLogger.d("Added RoutePathListeners: ${function.hashCode.toString()}");
+}
 
-removeRoutePathListeners(dynamic Function(RoutePath) function) =>
-    _routePathListeners.remove(function.hashCode.toString());
+removeRoutePathListeners(dynamic Function(RoutePath) function) {
+  _routePathListeners.remove(function.hashCode.toString());
+  routerLogger.d("Removed RoutePathListeners: ${function.hashCode.toString()}");
+}
 
 class RouteInstance {
   final String routePath;
@@ -48,7 +56,7 @@ class RouteInstance {
   final String parameters;
   final String path;
   final dynamic extraInformation;
-
+  final logger = Logger(printer: CustomLogPrinter('RouteInstance'));
   RouteInstance(
       {required this.routePath,
       required this.pageBuilder,
@@ -72,13 +80,13 @@ class RouteInstance {
   }
 
   RouteInformation getRouteInformation() {
-    log("getRouteInformation:" + path, name: 'ml.cullen.router');
+    logger.d("getRouteInformation:" + path);
     return RouteInformation(location: path);
   }
 
   Page getPage() {
-    log("path:" + routePath, name: 'ml.cullen.router');
-    log("parameter:" + parameters, name: 'ml.cullen.router');
+    logger.d("path:" + routePath);
+    logger.d("parameter:" + parameters);
     return MaterialPage(
         key: ValueKey(RouteData(
           path: path,

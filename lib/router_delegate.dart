@@ -2,6 +2,7 @@ part of 'route.dart';
 
 class RouterDelegateInherit extends RouterDelegate<RoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<RoutePath> {
+  final logger = Logger(printer: CustomLogPrinter('RouterDelegateInherit'));
   late RoutePath _routePath;
   late PathHandler handler;
 
@@ -16,8 +17,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
     handler = Provider.of<PathHandler>(context, listen: true);
     handler.addListener(notifyListeners);
 
-    log('handler.routeName: ${handler.routeName}',
-        name: 'ml.cullen.RouterDelegateInherit');
+    logger.d('handler.routeName: ${handler.routeName}');
     final routePath = RoutePath(routeName: handler.routeName);
     _routePath = routePath;
     return Navigator(
@@ -26,8 +26,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
       reportsRouteUpdateToEngine: false,
       onPopPage: (route, result) {
         if (!route.didPop(result)) return false;
-        log('Pop Executed = ' + routePath.getRouteInstance.routePath,
-            name: 'ml.cullen.RouterDelegateInherit');
+        logger.d('Pop Executed = ' + routePath.getRouteInstance.routePath);
         handler.changePath(routePath.getRouteInstance.routePath);
         notifyListeners();
         return true;
@@ -37,8 +36,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
 
   @override
   Future<void> setNewRoutePath(RoutePath configuration) async {
-    log('setNewRoutePath = ' + configuration.routeName,
-        name: 'ml.cullen.RouterDelegateInherit');
+    logger.d('setNewRoutePath = ' + configuration.routeName);
     _routePath = configuration;
     handler.changePath(configuration.routeName);
     notifyListeners();

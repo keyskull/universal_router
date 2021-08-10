@@ -1,6 +1,7 @@
 part of 'route.dart';
 
 class RoutePath {
+  final logger = Logger(printer: CustomLogPrinter('RoutePath'));
   String _routeName = '';
   RouteInstance _route = InitRouterBase.unknownPage;
 
@@ -28,13 +29,9 @@ class RoutePath {
       this._route = this._route.createChildRouteInstance(
           parameters: routeNameSplit.skip(1).join('/'));
 
-    log('this._routeName = ' + this._routeName,
-        name: 'ml.cullen.router.RoutePath');
-    log('this._routeStack = [' + _routeStack.keys.join(",") + ']',
-        name: 'ml.cullen.router.RoutePath');
-    log('this._route.routePath = ' + this._route.routePath,
-        name: 'ml.cullen.router.RoutePath');
-    log('this._route._parameters = ' + this._route.parameters,
-        name: 'ml.cullen.router.RoutePath');
+    logger.d('this._routeName = ' + this._routeName);
+    logger.d('this._routeStack = [' + _routeStack.keys.join(",") + ']');
+    logger.d('this._route.routePath = ' + this._route.routePath);
+    logger.d('this._route._parameters = ' + this._route.parameters);
   }
 }
