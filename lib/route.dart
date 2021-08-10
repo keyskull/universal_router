@@ -35,6 +35,12 @@ setNavigationLayer(
             newNavigationLayer) =>
     _navigationLayer = newNavigationLayer;
 
+addRoutePathListeners(dynamic Function(RoutePath) function) =>
+    _routePathListeners[function.hashCode.toString()] = function;
+
+removeRoutePathListeners(dynamic Function(RoutePath) function) =>
+    _routePathListeners.remove(function.hashCode.toString());
+
 class RouteInstance {
   final String routePath;
   final PageBuilder pageBuilder;

@@ -1,6 +1,8 @@
 part of 'route.dart';
 // import 'package:firebase_integration/firebase.dart';
 
+Map<String, Function(RoutePath routePath)> _routePathListeners = {};
+
 class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {
   @override
   Future<RoutePath> parseRouteInformation(
@@ -23,6 +25,7 @@ class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {
             routePath.getRouteInstance.getRouteInformation().state.toString(),
         name: 'ml.cullen.router.RouteInformationParserInherit');
 
+    _routePathListeners.values.map((e) => e(routePath));
     // FirebaseIntegration.firebaseAnalytics
     //     .setCurrentScreen(
     //         screenName: routePath.routeName,
