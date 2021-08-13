@@ -11,7 +11,7 @@ class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {
   Future<RoutePath> parseRouteInformation(
       RouteInformation routeInformation) async {
     logger
-        .d('routeInformation.location = ' + (routeInformation.location ?? '/'));
+        .i('routeInformation.location = ' + (routeInformation.location ?? '/'));
     return RoutePath(routeName: routeInformation.location ?? '/');
   }
 
