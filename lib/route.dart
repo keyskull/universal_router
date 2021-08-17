@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
@@ -25,19 +23,12 @@ typedef PageBuilder = Future<Widget> Function(
 
 Widget Function({required Widget child}) _decorationLayer =
     ({required Widget child}) => Container(child: child);
-Widget Function({Key? key, required Widget child}) _navigationLayer =
-    ({Key? key, required Widget child}) => Container(key: key, child: child);
 
 Map<String, RouteInstance> _routeStack = {};
 
 setDecorationLayer(
         Widget Function({required Widget child}) newDecorationLayer) =>
     _decorationLayer = newDecorationLayer;
-
-setNavigationLayer(
-        Widget Function({Key? key, required Widget child})
-            newNavigationLayer) =>
-    _navigationLayer = newNavigationLayer;
 
 addRoutePathListeners(dynamic Function(RoutePath) function) {
   _routePathListeners[function.hashCode.toString()] = function;
@@ -94,9 +85,8 @@ class RouteInstance {
           parameters: parameters,
           routePath: routePath,
         )),
-        child: _navigationLayer(
-            child: AsyncLoadPage(
-                future: pageBuilder(parameters, extraInformation)
-                    .then((value) => _decorationLayer(child: value)))));
+        child: AsyncLoadPage(
+            future: pageBuilder(parameters, extraInformation)
+                .then((value) => _decorationLayer(child: value))));
   }
 }
