@@ -3,7 +3,9 @@ part of 'route.dart';
 class RouterDelegateInherit extends RouterDelegate<RoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<RoutePath> {
   final logger = Logger(printer: CustomLogPrinter('RouterDelegateInherit'));
-  late RoutePath _routePath;
+
+  /// TODO: Need Optimize: It shouldn't need to initialize _routePath;
+  RoutePath _routePath = RoutePath();
   late PathHandler handler;
 
   GlobalKey<NavigatorState> navigatorKey = globalNavigatorKey;
