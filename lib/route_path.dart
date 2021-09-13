@@ -5,8 +5,8 @@ class RoutePath {
   String _routeName = '';
   RouteInstance _route = InitRouterBase.unknownPage;
 
-  RoutePath({String routeName = ""}) {
-    this.updateRouteName(routeName);
+  RoutePath({String? routeName = "/"}) {
+    this.updateRouteName(routeName!);
   }
 
   RouteInstance get getRouteInstance => this._route;
@@ -28,10 +28,11 @@ class RoutePath {
     else if (routeNameSplit.length > 1)
       this._route = this._route.createChildRouteInstance(
           parameters: routeNameSplit.skip(1).join('/'));
-
-    logger.d('this._routeName = ' + this._routeName);
-    logger.d('this._routeStack = [' + _routeStack.keys.join(",") + ']');
-    logger.d('this._route.routePath = ' + this._route.routePath);
-    logger.d('this._route._parameters = ' + this._route.parameters);
+    logger.d('updateRouteName executed.');
+    logger.i('this._route.title = ' + this._route.title);
+    logger.i('this._routeName = ' + this._routeName);
+    logger.i('this._routeStack = [' + _routeStack.keys.join(",") + ']');
+    logger.i('this._route.routePath = ' + this._route.routePath);
+    logger.i('this._route._parameters = ' + this._route.parameters);
   }
 }

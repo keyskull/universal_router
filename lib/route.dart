@@ -24,8 +24,6 @@ typedef PageBuilder = Future<Widget> Function(
 Widget Function({required Widget child}) _decorationLayer =
     ({required Widget child}) => Container(child: child);
 
-Map<String, RouteInstance> _routeStack = {};
-
 setDecorationLayer(
         Widget Function({required Widget child}) newDecorationLayer) =>
     _decorationLayer = newDecorationLayer;
@@ -39,6 +37,8 @@ removeRoutePathListeners(dynamic Function(RoutePath) function) {
   _routePathListeners.remove(function.hashCode.toString());
   routerLogger.d("Removed RoutePathListeners: ${function.hashCode.toString()}");
 }
+
+final Map<String, RouteInstance> _routeStack = {};
 
 class RouteInstance {
   final String routePath;
@@ -75,7 +75,7 @@ class RouteInstance {
     return RouteInformation(location: path);
   }
 
-  Page getPage() {
+  MaterialPage getPage() {
     logger.d("path:" + routePath);
     logger.d("parameter:" + parameters);
     return MaterialPage(

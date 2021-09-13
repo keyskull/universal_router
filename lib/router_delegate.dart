@@ -5,32 +5,38 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
   final logger = Logger(printer: CustomLogPrinter('RouterDelegateInherit'));
 
   /// TODO: Need Optimize: It shouldn't need to initialize _routePath;
-  RoutePath _routePath = RoutePath();
-  late PathHandler handler;
+  RoutePath? _routePath;
+  PathHandler? handler;
 
-  GlobalKey<NavigatorState> navigatorKey = globalNavigatorKey;
+  final GlobalKey<NavigatorState> navigatorKey = globalNavigatorKey;
 
   RoutePath get currentConfiguration {
-    return _routePath;
+    logger.d('currentConfiguration get executed.');
+    return _routePath ?? startPath ?? RoutePath();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (startPath != null) {
+      Provider.of<PathHandler>(context).routeName = startPath!.routeName;
+      startPath = null;
+    }
     handler = Provider.of<PathHandler>(context, listen: true);
-    handler.addListener(notifyListeners);
+    handler?.addListener(notifyListeners);
 
-    logger.d('handler.routeName: ${handler.routeName}');
-    final routePath = RoutePath(routeName: handler.routeName);
+    logger.d('handler.routeName: ${handler?.routeName}');
+    final routePath = _routePath?.routeName == handler?.routeName
+        ? _routePath!
+        : RoutePath(routeName: handler?.routeName);
     _routePath = routePath;
+
     return Navigator(
       key: navigatorKey,
       pages: [routePath.getRouteInstance.getPage()],
-      reportsRouteUpdateToEngine: false,
       onPopPage: (route, result) {
         if (!route.didPop(result)) return false;
         logger.d('Pop Executed = ' + routePath.getRouteInstance.routePath);
-        handler.changePath(routePath.getRouteInstance.routePath);
-        notifyListeners();
+        handler?.changePath(routePath.getRouteInstance.routePath);
         return true;
       },
     );
@@ -38,15 +44,17 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
 
   @override
   Future<void> setNewRoutePath(RoutePath configuration) async {
-    logger.d('setNewRoutePath = ' + configuration.routeName);
-    _routePath = configuration;
-    handler.changePath(configuration.routeName);
-    notifyListeners();
+    logger.d('setNewRoutePath executed.');
+    if (configuration.getRouteInstance != _routePath?.getRouteInstance) {
+      logger.i('set new routePath = ' + configuration.routeName);
+      _routePath = configuration;
+      handler?.changePath(configuration.routeName);
+    }
   }
 
   @override
   void dispose() {
-    handler.dispose();
+    handler?.dispose();
     super.dispose();
   }
 }
