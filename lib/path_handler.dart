@@ -10,7 +10,7 @@ class PathHandler extends ChangeNotifier {
 
   void changePath(String path) {
     routeName = path;
-    final routePathInstance = RoutePath(routeName: path).getRouteInstance;
+    final routePathInstance = RoutePath(path: path).getRouteInstance;
     SystemChrome.setApplicationSwitcherDescription(
         ApplicationSwitcherDescription(
       label: routePathInstance.title,
@@ -23,14 +23,14 @@ class PathHandler extends ChangeNotifier {
 
   /// TODO: Experimental Function
   void changeRoutePath(RoutePath routePath) {
-    routePath = routePath;
-    // SystemChrome.setApplicationSwitcherDescription(
-    //     ApplicationSwitcherDescription(
-    //       label: routePath.getRouteInstance.title,
-    //       primaryColor: 0,
-    //     ));
+    this.routePath = routePath;
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
+      label: routePath.getRouteInstance.title,
+      primaryColor: 0,
+    ));
 
-    logger.d('Changed path:' + routeName);
+    logger.d('Changed path:' + routePath.routeName);
     notifyListeners();
   }
 }

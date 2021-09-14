@@ -16,17 +16,17 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
 
   @override
   Widget build(BuildContext context) {
+    logger.d('build executed');
+
     if (startPath != null) {
-      Provider.of<PathHandler>(context).routeName = startPath!.routeName;
+      Provider.of<PathHandler>(context).routePath = startPath!;
       startPath = null;
     }
     handler = Provider.of<PathHandler>(context, listen: true);
     handler?.addListener(notifyListeners);
 
-    logger.d('handler.routeName: ${handler?.routeName}');
-    final routePath = _routePath?.routeName == handler?.routeName
-        ? _routePath!
-        : RoutePath(routeName: handler?.routeName);
+    logger.d('handler.routeName: ${handler?.routePath?.routeName}');
+    final routePath = handler?.routePath ?? RoutePath();
     _routePath = routePath;
 
     return Navigator(
@@ -35,15 +35,18 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
         onPopPage: (route, result) {
           if (!route.didPop(result)) return false;
           logger.d('Pop Executed = ' + routePath.getRouteInstance.routePath);
-          handler?.changePath(routePath.getRouteInstance.routePath);
+          handler?.changeRoutePath(routePath);
           return true;
         },
         onGenerateRoute: (setting) {
           logger.i(
               "onGenerateRoute RouteSettings: [name: ${setting.name ?? ''}, arguments: ${setting.arguments ?? ''}]");
-          final routePath = RoutePath(routeName: setting.name);
-          this.setNewRoutePath(routePath);
-          return routePath.getRouteInstance.getPageRoute();
+          final routePath = RoutePath(path: setting.name);
+          if (routePath != _routePath!) {
+            this.setNewRoutePath(routePath);
+            return routePath.getRouteInstance.getPageRoute();
+          } else
+            return _routePath!.getRouteInstance.getPageRoute();
         });
   }
 
@@ -53,7 +56,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
     if (configuration.getRouteInstance != _routePath?.getRouteInstance) {
       logger.i('set new routePath = ' + configuration.routeName);
       _routePath = configuration;
-      handler?.changePath(configuration.routeName);
+      handler?.changeRoutePath(configuration);
     }
   }
 

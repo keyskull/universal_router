@@ -87,8 +87,9 @@ class RouteInstance {
           .then((value) => _decorationLayer(child: value)));
 
   MaterialPage getPage() {
-    logger.d("path:" + routePath);
-    logger.d("parameter:" + parameters);
+    logger.d('getPage executed');
+    logger.i("path:" + routePath);
+    logger.i("parameter:" + parameters);
     return MaterialPage(
         key: ValueKey(RouteData(
           path: path,
@@ -99,5 +100,9 @@ class RouteInstance {
         child: _widget);
   }
 
-  Route getPageRoute() => MaterialPageRoute(builder: (_) => _widget);
+  Route getPageRoute() {
+    logger.d('getPageRoute executed');
+
+    return MaterialPageRoute(builder: (_) => _widget);
+  }
 }

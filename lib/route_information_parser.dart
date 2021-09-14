@@ -11,14 +11,23 @@ class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {
   @override
   Future<RoutePath> parseRouteInformation(
       RouteInformation routeInformation) async {
-    logger
-        .i('routeInformation.location = ' + (routeInformation.location ?? '/'));
-    startPath = RoutePath(routeName: routeInformation.location);
+    final path = (routeInformation.location ?? '/');
+
+    logger.d('parseRouteInformation executed');
+    logger.i('routeInformation.location = ' + path);
+    logger.i('startPath.path = ' + (startPath?.path ?? ''));
+
+    if ((startPath?.path ?? '') != path) {
+      logger.d('startPath updated.');
+      startPath = RoutePath(path: path);
+    }
     return startPath!;
   }
 
   @override
   RouteInformation restoreRouteInformation(RoutePath routePath) {
+    logger.d('restoreRouteInformation executed');
+
     logger.i('restoreRouteInformation = ' + routePath.routeName);
     logger.i('routePath.getRouteInstance.getRouteInformation().location = ' +
         (routePath.getRouteInstance.getRouteInformation().location ?? ''));
