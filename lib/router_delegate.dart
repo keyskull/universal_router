@@ -4,7 +4,6 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<RoutePath> {
   final logger = Logger(printer: CustomLogPrinter('RouterDelegateInherit'));
 
-  /// TODO: Need Optimize: It shouldn't need to initialize _routePath;
   RoutePath? _routePath;
   PathHandler? handler;
 
@@ -31,15 +30,21 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
     _routePath = routePath;
 
     return Navigator(
-      key: navigatorKey,
-      pages: [routePath.getRouteInstance.getPage()],
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) return false;
-        logger.d('Pop Executed = ' + routePath.getRouteInstance.routePath);
-        handler?.changePath(routePath.getRouteInstance.routePath);
-        return true;
-      },
-    );
+        key: navigatorKey,
+        pages: [routePath.getRouteInstance.getPage()],
+        onPopPage: (route, result) {
+          if (!route.didPop(result)) return false;
+          logger.d('Pop Executed = ' + routePath.getRouteInstance.routePath);
+          handler?.changePath(routePath.getRouteInstance.routePath);
+          return true;
+        },
+        onGenerateRoute: (setting) {
+          logger.i(
+              "onGenerateRoute RouteSettings: [name: ${setting.name ?? ''}, arguments: ${setting.arguments ?? ''}]");
+          final routePath = RoutePath(routeName: setting.name);
+          this.setNewRoutePath(routePath);
+          return routePath.getRouteInstance.getPageRoute();
+        });
   }
 
   @override

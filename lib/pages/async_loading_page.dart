@@ -17,11 +17,13 @@ import '404.dart';
 
 class AsyncLoadPage extends StatelessWidget {
   final logger = Logger(printer: CustomLogPrinter('Router.AsyncLoadPage'));
+  final Key? key;
   final Widget? child;
   final WidgetBuilder? builder;
   final Future<Widget>? future;
 
-  AsyncLoadPage({this.child, this.builder, this.future});
+  AsyncLoadPage({this.key, this.child, this.builder, this.future})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

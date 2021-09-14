@@ -48,6 +48,7 @@ class RouteInstance {
   final String path;
   final dynamic extraInformation;
   final logger = Logger(printer: CustomLogPrinter('RouteInstance'));
+
   RouteInstance(
       {required this.routePath,
       required this.pageBuilder,
@@ -75,6 +76,16 @@ class RouteInstance {
     return RouteInformation(location: path);
   }
 
+  late final _widget = AsyncLoadPage(
+      key: ValueKey(RouteData(
+        path: path,
+        title: title,
+        parameters: parameters,
+        routePath: routePath,
+      )),
+      future: pageBuilder(parameters, extraInformation)
+          .then((value) => _decorationLayer(child: value)));
+
   MaterialPage getPage() {
     logger.d("path:" + routePath);
     logger.d("parameter:" + parameters);
@@ -85,8 +96,8 @@ class RouteInstance {
           parameters: parameters,
           routePath: routePath,
         )),
-        child: AsyncLoadPage(
-            future: pageBuilder(parameters, extraInformation)
-                .then((value) => _decorationLayer(child: value))));
+        child: _widget);
   }
+
+  Route getPageRoute() => MaterialPageRoute(builder: (_) => _widget);
 }
