@@ -1,13 +1,18 @@
 part of 'route.dart';
 
-class PathHandler extends ChangeNotifier {
+class PathHandler {
   final logger = Logger(printer: CustomLogPrinter('PathHandler'));
 
+  @deprecated
   String routeName = "";
 
-  /// TODO: Experimental Function
   RoutePath? routePath;
 
+  @deprecated
+
+  ///
+  /// use UniversalRouter.changePath instead
+  ///
   void changePath(String path) {
     routeName = path;
     final routePathInstance = RoutePath(path: path).getRouteInstance;
@@ -18,19 +23,11 @@ class PathHandler extends ChangeNotifier {
     ));
 
     logger.d('Changed path:' + routeName);
-    notifyListeners();
+    // notifyListeners();
   }
 
-  /// TODO: Experimental Function
   void changeRoutePath(RoutePath routePath) {
-    this.routePath = routePath;
-    SystemChrome.setApplicationSwitcherDescription(
-        ApplicationSwitcherDescription(
-      label: routePath.getRouteInstance.title,
-      primaryColor: 0,
-    ));
-
     logger.d('Changed path:' + routePath.routeName);
-    notifyListeners();
+    this.routePath = routePath;
   }
 }

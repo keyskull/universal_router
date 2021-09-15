@@ -1,13 +1,25 @@
 part of 'route.dart';
 
-class RouterDelegateInherit extends RouterDelegate<RoutePath>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<RoutePath> {
+class UniversalRouter extends RouterDelegate<RoutePath>
+    with PopNavigatorRouterDelegateMixin<RoutePath> {
+  final routerInformationParser = RouteInformationParserInherit();
+  final routeInformationProvider = PlatformRouteInformationProvider(
+      initialRouteInformation: RouteInformation(
+          location: WidgetsBinding.instance!.window.defaultRouteName !=
+                  Navigator.defaultRouteName
+              ? WidgetsBinding.instance!.window.defaultRouteName
+              : WidgetsBinding.instance!.window.defaultRouteName));
+  late final RouterDelegate<RoutePath> routerDelegate = this;
+
   final logger = Logger(printer: CustomLogPrinter('RouterDelegateInherit'));
 
   RoutePath? _routePath;
-  PathHandler? handler;
+
+  final PathHandler handler = PathHandler();
 
   final GlobalKey<NavigatorState> navigatorKey = globalNavigatorKey;
+
+  static changePath(String path) => globalNavigatorKey.currentState!.pushNamed(path);
 
   RoutePath get currentConfiguration {
     logger.d('currentConfiguration get executed.');
@@ -18,51 +30,45 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
   Widget build(BuildContext context) {
     logger.d('build executed');
 
-    if (startPath != null) {
-      Provider.of<PathHandler>(context).routePath = startPath!;
-      startPath = null;
-    }
-    handler = Provider.of<PathHandler>(context, listen: true);
-    handler?.addListener(notifyListeners);
+    if (startPath != null) handler.routePath = startPath!;
 
-    logger.d('handler.routeName: ${handler?.routePath?.routeName}');
-    final routePath = handler?.routePath ?? RoutePath();
+    logger.d('handler.routeName: ${handler.routePath?.routeName}');
+    final routePath = handler.routePath ?? RoutePath();
     _routePath = routePath;
 
     return Navigator(
-        key: navigatorKey,
-        pages: [routePath.getRouteInstance.getPage()],
-        onPopPage: (route, result) {
-          if (!route.didPop(result)) return false;
-          logger.d('Pop Executed = ' + routePath.getRouteInstance.routePath);
-          handler?.changeRoutePath(routePath);
-          return true;
-        },
-        onGenerateRoute: (setting) {
-          logger.i(
-              "onGenerateRoute RouteSettings: [name: ${setting.name ?? ''}, arguments: ${setting.arguments ?? ''}]");
-          final routePath = RoutePath(path: setting.name);
-          if (routePath != _routePath!) {
-            this.setNewRoutePath(routePath);
-            return routePath.getRouteInstance.getPageRoute();
-          } else
-            return _routePath!.getRouteInstance.getPageRoute();
-        });
+      key: navigatorKey,
+      pages: [routePath.getRouteInstance.getPage()],
+      onPopPage: (route, result) {
+        if (!route.didPop(result)) return false;
+        logger.i('Pop Executed = ' + routePath.getRouteInstance.routePath);
+        this.setNewRoutePath(routePath);
+        return true;
+      },
+      onGenerateRoute: (setting) {
+        logger.i(
+            "onGenerateRoute RouteSettings: [name: ${setting.name ?? ''}, arguments: ${setting.arguments ?? ''}]");
+        this.setNewRoutePath(RoutePath(path: setting.name));
+        return routePath.getRouteInstance.getPageRoute();
+      },
+    );
   }
 
   @override
   Future<void> setNewRoutePath(RoutePath configuration) async {
     logger.d('setNewRoutePath executed.');
-    if (configuration.getRouteInstance != _routePath?.getRouteInstance) {
+    if (configuration.routeName != (_routePath?.routeName ?? '')) {
       logger.i('set new routePath = ' + configuration.routeName);
       _routePath = configuration;
-      handler?.changeRoutePath(configuration);
+      handler.changeRoutePath(configuration);
+      routeInformationProvider.routerReportsNewRouteInformation(
+          configuration.getRouteInstance.getRouteInformation());
     }
   }
 
   @override
-  void dispose() {
-    handler?.dispose();
-    super.dispose();
-  }
+  void addListener(VoidCallback listener) {}
+
+  @override
+  void removeListener(VoidCallback listener) {}
 }

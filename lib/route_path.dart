@@ -25,9 +25,8 @@ class RoutePath {
         InitRouterBase.unknownPage;
 
     if (_route == InitRouterBase.unknownPage)
-      this._route = this
-          ._route
-          .createChildRouteInstance(extraInformation: 'Page Not Found.');
+      this._route = this._route.createChildRouteInstance(
+          extraInformation: 'Page Not Found.\n Wrong path:  $path');
     else if (routeNameSplit.length > 1)
       this._route = this._route.createChildRouteInstance(
           parameters: routeNameSplit.skip(1).join('/'));

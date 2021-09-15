@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 import 'package:utilities/custom_log_printer.dart';
 
 import 'init_router_base.dart';
@@ -76,13 +75,7 @@ class RouteInstance {
     return RouteInformation(location: path);
   }
 
-  late final _widget = AsyncLoadPage(
-      key: ValueKey(RouteData(
-        path: path,
-        title: title,
-        parameters: parameters,
-        routePath: routePath,
-      )),
+  late final widget = AsyncLoadPage(
       future: pageBuilder(parameters, extraInformation)
           .then((value) => _decorationLayer(child: value)));
 
@@ -91,18 +84,19 @@ class RouteInstance {
     logger.i("path:" + routePath);
     logger.i("parameter:" + parameters);
     return MaterialPage(
+        maintainState: false,
         key: ValueKey(RouteData(
           path: path,
           title: title,
           parameters: parameters,
           routePath: routePath,
         )),
-        child: _widget);
+        child: widget);
   }
 
   Route getPageRoute() {
     logger.d('getPageRoute executed');
 
-    return MaterialPageRoute(builder: (_) => _widget);
+    return MaterialPageRoute(maintainState: false, builder: (_) => widget);
   }
 }

@@ -9,7 +9,7 @@ class UnknownScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Column(
-      children: [Text('404!'), Text('Error Message:' + errorMSG!)],
+      children: [Text('404!'), Text('Error Message: ' + errorMSG!)],
     ));
   }
 }
