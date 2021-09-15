@@ -19,7 +19,8 @@ class UniversalRouter extends RouterDelegate<RoutePath>
 
   final GlobalKey<NavigatorState> navigatorKey = globalNavigatorKey;
 
-  static changePath(String path) => globalNavigatorKey.currentState!.pushNamed(path);
+  static changePath(String path) =>
+      globalNavigatorKey.currentState!.pushNamed(path);
 
   RoutePath get currentConfiguration {
     logger.d('currentConfiguration get executed.');
@@ -48,8 +49,14 @@ class UniversalRouter extends RouterDelegate<RoutePath>
       onGenerateRoute: (setting) {
         logger.i(
             "onGenerateRoute RouteSettings: [name: ${setting.name ?? ''}, arguments: ${setting.arguments ?? ''}]");
-        this.setNewRoutePath(RoutePath(path: setting.name));
-        return routePath.getRouteInstance.getPageRoute();
+        if ((_routePath?.path ?? '-') == setting.name)
+          return _routePath!.getRouteInstance.getPageRoute();
+        else {
+          final routerPath1 = RoutePath(path: setting.name);
+          this.setNewRoutePath(routerPath1);
+
+          return routerPath1.getRouteInstance.getPageRoute();
+        }
       },
     );
   }

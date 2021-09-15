@@ -84,7 +84,6 @@ class RouteInstance {
     logger.i("path:" + routePath);
     logger.i("parameter:" + parameters);
     return MaterialPage(
-        maintainState: false,
         key: ValueKey(RouteData(
           path: path,
           title: title,
@@ -97,6 +96,6 @@ class RouteInstance {
   Route getPageRoute() {
     logger.d('getPageRoute executed');
 
-    return MaterialPageRoute(maintainState: false, builder: (_) => widget);
+    return MaterialPageRoute(builder: (_) => widget);
   }
 }
