@@ -1,7 +1,7 @@
+import 'package:cullen_utilities/custom_log_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
-import 'package:utilities/custom_log_printer.dart';
 
 import 'init_router_base.dart';
 import 'pages/async_loading_page.dart';

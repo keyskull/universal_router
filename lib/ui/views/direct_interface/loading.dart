@@ -1,5 +1,5 @@
+import 'package:cullen_utilities/screen_size.dart';
 import 'package:flutter/material.dart';
-import 'package:utilities/screen_size.dart';
 
 class Loading extends StatelessWidget {
   @override

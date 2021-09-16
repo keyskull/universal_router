@@ -11,9 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  utilities:
-    git:
-      url: https://github.com/keyskull/utilities.git
+  cullen_utilities: 0.1.0
 
 #dash-overflow.net
 #  provider: ^5.0.0

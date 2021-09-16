@@ -1,6 +1,6 @@
+import 'package:cullen_utilities/custom_log_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:utilities/custom_log_printer.dart';
 
 import '../ui/views/direct_interface/loading.dart';
 import '404.dart';
