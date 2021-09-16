@@ -1,8 +1,8 @@
 name: universal_router
 description: A Flutter router package.
-version: 0.2.1
+version: 0.2.2
 homepage: https://cullen.ml
-
+repository: https://github.com/keyskull/universal_router
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=2.1.0"
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   logger: ^1.1.0
-  cullen_utilities:
+  cullen_utilities: ^0.1.1
 
 #dash-overflow.net
 #  provider: ^5.0.0

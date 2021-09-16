@@ -1,6 +1,6 @@
 part of 'route.dart';
 
-class UniversalRouter extends RouterDelegate<RoutePath>
+class RouterDelegateInherit extends RouterDelegate<RoutePath>
     with PopNavigatorRouterDelegateMixin<RoutePath> {
   final routerInformationParser = RouteInformationParserInherit();
   final routeInformationProvider = PlatformRouteInformationProvider(
@@ -9,7 +9,6 @@ class UniversalRouter extends RouterDelegate<RoutePath>
                   Navigator.defaultRouteName
               ? WidgetsBinding.instance!.window.defaultRouteName
               : WidgetsBinding.instance!.window.defaultRouteName));
-  late final RouterDelegate<RoutePath> routerDelegate = this;
 
   final logger = Logger(printer: CustomLogPrinter('RouterDelegateInherit'));
 
@@ -18,9 +17,6 @@ class UniversalRouter extends RouterDelegate<RoutePath>
   final PathHandler handler = PathHandler();
 
   final GlobalKey<NavigatorState> navigatorKey = globalNavigatorKey;
-
-  static changePath(String path) =>
-      globalNavigatorKey.currentState!.pushNamed(path);
 
   RoutePath get currentConfiguration {
     logger.d('currentConfiguration get executed.');

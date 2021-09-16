@@ -1,14 +1,68 @@
-# router_package
+# `universal_router` [![pub package](https://img.shields.io/pub/v/universal_router.svg)](https://pub.dartlang.org/packages/universal_router)
 
-A Flutter router package.
+This package is a implementation of Navigator 2.0 in Flutter.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+- Easy to use.
+- Router table concept.
+- Various parameter setting.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Install
+
+Install by adding this package to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  universal_router: ^[latest version]
+```
+
+## Usage
+---
+
+### Import
+
+```dart
+import 'package:universal_router/route.dart';
+```
+
+### Simple Example
+
+```dart
+
+import 'package:universal_router/route.dart';
+
+
+
+void main() {
+  final universalRouter = UniversalRouter.initialize();
+
+  RouteInstance(
+      routePath: "",
+      title: "Home",
+      pageBuilder: (_, __) async => Home());
+
+  runApp(
+      MaterialApp.router(
+        routerDelegate: universalRouter.routerDelegate,
+        routeInformationProvider: universalRouter.routeInformationProvider,
+        routeInformationParser: universalRouter.routerInformationParser,
+      ));
+}
+
+class Home extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) =>
+      TextButton(onPressed: () => {UniversalRouter.changePath("somewhere")},
+          child: Text('go to somewhere else'));
+
+}
+
+
+```
+
+# License
+
+Copyright © 2021, [Jialin Li](https://github.com/keyskull).  
+Released under the [GNU AGPLv3](LICENSE).

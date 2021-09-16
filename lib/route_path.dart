@@ -4,7 +4,7 @@ class RoutePath {
   final logger = Logger(printer: CustomLogPrinter('RoutePath'));
   String _path = '';
   String _routeName = '';
-  RouteInstance _route = InitRouterBase.unknownPage;
+  RouteInstance _route = UniversalRouter.unknownPage;
 
   RoutePath({String? path = "/"}) {
     this.updateRouteName(path!);
@@ -22,9 +22,9 @@ class RoutePath {
     final routeNameSplit = _routeName.split('/');
     this._route = _routeStack[_routeName] ??
         _routeStack[routeNameSplit.first] ??
-        InitRouterBase.unknownPage;
+        UniversalRouter.unknownPage;
 
-    if (_route == InitRouterBase.unknownPage)
+    if (_route == UniversalRouter.unknownPage)
       this._route = this._route.createChildRouteInstance(
           extraInformation: 'Page Not Found.\n Wrong path:  $path');
     else if (routeNameSplit.length > 1)
