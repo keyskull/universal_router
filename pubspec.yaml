@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  cullen_utilities: 0.1.0
+  logger: ^1.1.0
+  cullen_utilities: ^0.1.0
 
 #dash-overflow.net
 #  provider: ^5.0.0
