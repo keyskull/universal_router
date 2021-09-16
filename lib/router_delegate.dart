@@ -37,6 +37,13 @@ class UniversalRouter extends RouterDelegate<RoutePath>
     final routePath = handler.routePath ?? RoutePath();
     _routePath = routePath;
 
+    // initiate browser title
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
+      label: routePath.getRouteInstance.title,
+      primaryColor: 0,
+    ));
+
     return Navigator(
       key: navigatorKey,
       pages: [routePath.getRouteInstance.getPage()],

@@ -28,6 +28,13 @@ class PathHandler {
 
   void changeRoutePath(RoutePath routePath) {
     logger.d('Changed path:' + routePath.routeName);
+
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
+      label: routePath.getRouteInstance.title,
+      primaryColor: 0,
+    ));
+
     this.routePath = routePath;
   }
 }
