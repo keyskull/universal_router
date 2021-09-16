@@ -1,4 +1,4 @@
-## [0.2.2] - Date: 09-13-2021
+## [0.2.2] - Date: 09-15-2021
 
 - Pack all the basic function to UniversalRouter class.
 - Added remove method to RouterInstance class.
