@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 
-import 'pages/404.dart' deferred as error;
 import 'pages/async_loading_page.dart';
+import 'ui/views/screen/404.dart' deferred as error;
 
 part 'path_handler.dart';
 part 'route_data.dart';
@@ -45,12 +45,25 @@ class UniversalRouter {
   static changePath(String path) =>
       globalNavigatorKey.currentState!.pushNamed(path);
 
+  ///
+  /// to access current router table status;
+  get getRegisteredRoute => _routeStack;
+
+  ///
+  /// This is a pre-registered Route as the 404 page.
+  /// Also, the value is able to access from outside to get the information
+  /// and unregister the route;
+  ///
+  /// For the next version, add a setting for override 404 page.
   static final unknownPage = RouteInstance(
       routePath: "404",
       title: 'Page not Found',
       pageBuilder: (parameters, extraInformation) => error.loadLibrary().then(
           (_) => error.UnknownScreen(errorMSG: extraInformation.toString())));
 
+  ///
+  /// This static method use for materialize the [UniversalRouter] class.
+  ///
   static UniversalRouter initialize() => UniversalRouter();
 
   final RouterDelegateInherit routerDelegate = RouterDelegateInherit();

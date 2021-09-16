@@ -2,8 +2,8 @@ import 'package:cullen_utilities/custom_log_printer.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-import '../ui/views/direct_interface/loading.dart';
-import '404.dart';
+import '../ui/views/screen/404.dart';
+import '../ui/views/screen/loading.dart';
 
 // class AsyncMaterialPageRoute extends MaterialPageRoute {
 //   final Widget? child;

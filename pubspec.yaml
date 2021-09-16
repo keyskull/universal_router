@@ -1,6 +1,6 @@
 name: universal_router
-description: A Flutter router package.
-version: 0.2.2
+description: This package is a implementation of Navigator 2.0. Supported Router Table concept.
+version: 0.2.3
 homepage: https://cullen.ml
 repository: https://github.com/keyskull/universal_router
 environment:

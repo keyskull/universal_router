@@ -1,6 +1,7 @@
 # `universal_router` [![pub package](https://img.shields.io/pub/v/universal_router.svg)](https://pub.dartlang.org/packages/universal_router)
 
-This package is a implementation of Navigator 2.0 in Flutter.
+This package is a implementation of Navigator 2.0. Supported Router Table concept.
+
 
 ## Features
 
@@ -18,7 +19,6 @@ dependencies:
 ```
 
 ## Usage
----
 
 ### Import
 
