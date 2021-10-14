@@ -42,8 +42,17 @@ class UniversalRouter {
         .d("Removed RoutePathListeners: ${function.hashCode.toString()}");
   }
 
-  static changePath(String path) =>
-      globalNavigatorKey.currentState!.pushNamed(path);
+  static changePath(String path) {
+    routerLogger.i('changePath: ' + path);
+    globalNavigatorKey.currentState!.pushNamed(path);
+  }
+
+  static pop() => globalNavigatorKey.currentState!.pushNamed(
+      _routerDelegate.currentConfiguration.getRouteInstance.routePath);
+
+  static RouteData? getCurrentRouteData() =>
+      (globalNavigatorKey.currentState?.widget.pages.first.key as ValueKey?)
+          ?.value as RouteData?;
 
   ///
   /// to access current router table status;
@@ -66,7 +75,9 @@ class UniversalRouter {
   ///
   static UniversalRouter initialize() => UniversalRouter();
 
-  final RouterDelegateInherit routerDelegate = RouterDelegateInherit();
+  static final RouterDelegateInherit _routerDelegate = RouterDelegateInherit();
+
+  final RouterDelegateInherit routerDelegate = _routerDelegate;
   late final routerInformationParser = routerDelegate.routerInformationParser;
   late final routeInformationProvider = routerDelegate.routeInformationProvider;
 
