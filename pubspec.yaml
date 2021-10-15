@@ -1,6 +1,6 @@
 name: universal_router
 description: This package is a implementation of Navigator 2.0. Supported Router Table concept.
-version: 0.2.3
+version: 0.2.5
 homepage: https://cullen.ml
 repository: https://github.com/keyskull/universal_router
 environment:
@@ -19,6 +19,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

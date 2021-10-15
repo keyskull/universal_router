@@ -13,6 +13,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
   final logger = Logger(printer: CustomLogPrinter('RouterDelegateInherit'));
 
   RoutePath? _routePath;
+  RoutePath? _navigatorRoutePath;
 
   List<Page<dynamic>> pages = [];
 
@@ -54,6 +55,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
         logger.i('route.settings.name = ' + (route.settings.name ?? ''));
         if (!route.didPop(result)) return false;
         final newRoutePath = RoutePath(path: oldRoutePath.routePath);
+        this._navigatorRoutePath = newRoutePath;
         this.setNewRoutePath(newRoutePath);
         return true;
       },
@@ -63,9 +65,10 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
         if ((_routePath?.path ?? '-') == setting.name)
           return _routePath!.getRouteInstance.getPageRoute();
         else {
-          final routerPath1 = RoutePath(path: setting.name);
-          this.setNewRoutePath(routerPath1);
-          return routerPath1.getRouteInstance.getPageRoute();
+          final newRouterPath = RoutePath(path: setting.name);
+          this._navigatorRoutePath = newRouterPath;
+          this.setNewRoutePath(newRouterPath);
+          return newRouterPath.getRouteInstance.getPageRoute();
         }
       },
     );
@@ -84,9 +87,14 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
     logger.d('configuration.routeName = ' + configuration.routeName);
     logger.d('currentConfiguration = ' + currentConfiguration.routeName);
     this._routePath = configuration;
+    if (this._navigatorRoutePath != this._routePath) {
+      this._navigatorRoutePath = this._routePath;
+      navigatorKey.currentState?.pushNamed(this._routePath?.path ?? '');
+    }
     logger.d('update _routPath');
     logger.d('_routePath.routeName = ' + (_routePath?.routeName ?? ''));
     logger.d('currentConfiguration = ' + currentConfiguration.routeName);
+
     notifyListeners();
   }
 }

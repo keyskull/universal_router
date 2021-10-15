@@ -1,3 +1,7 @@
+## [0.2.5]
+- Fixed unable pop page through browser backward method.
+- Standardized RoutePath.path to all start with '/'.
+
 ## [0.2.3]
 
 - Changed UnknownScreen class path location.

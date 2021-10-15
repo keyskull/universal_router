@@ -81,5 +81,5 @@ class UniversalRouter {
   late final routerInformationParser = routerDelegate.routerInformationParser;
   late final routeInformationProvider = routerDelegate.routeInformationProvider;
 
-  get currentConfiguration => routerDelegate.currentConfiguration;
+  RoutePath get currentConfiguration => routerDelegate.currentConfiguration;
 }

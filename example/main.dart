@@ -9,14 +9,18 @@ void main() {
 }
 
 class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => TextButton(
       onPressed: () => {UniversalRouter.changePath('somewhere')},
-      child: Text('go to somewhere else'));
+      child: const Text('go to somewhere else'));
 }
 
 class MyApp extends StatelessWidget {
   final universalRouter = UniversalRouter.initialize();
+
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
