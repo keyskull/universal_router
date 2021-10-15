@@ -3,12 +3,14 @@ part of 'route.dart';
 class PathHandler {
   final logger = Logger(printer: CustomLogPrinter('PathHandler'));
 
-  @deprecated
-  String routeName = "";
+  @Deprecated(
+    'no longer use this variable',
+  )
+  String routeName = '';
 
   RoutePath? routePath;
 
-  @deprecated
+  @Deprecated('use UniversalRouter.changePath instead')
 
   ///
   /// use UniversalRouter.changePath instead

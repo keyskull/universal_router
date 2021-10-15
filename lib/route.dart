@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 
 import 'pages/async_loading_page.dart';
-import 'ui/views/screen/404.dart' deferred as error;
+import 'ui/views/screen/unknown.dart' deferred as error;
 
 part 'path_handler.dart';
 part 'route_data.dart';
@@ -21,8 +21,11 @@ final GlobalKey<NavigatorState> globalNavigatorKey =
 typedef PageBuilder = Future<Widget> Function(
     String? parameters, dynamic extraInformation);
 
-Widget Function({required Widget child}) _decorationLayer =
-    ({required Widget child}) => Container(child: child);
+Widget nullDecorationLayer({required Widget child}) => Container(
+      child: child,
+    );
+
+Widget Function({required Widget child}) _decorationLayer = nullDecorationLayer;
 
 final Map<String, RouteInstance> _routeStack = {};
 
@@ -33,13 +36,13 @@ class UniversalRouter {
 
   static addRoutePathListeners(dynamic Function(RoutePath) function) {
     _routePathListeners[function.hashCode.toString()] = function;
-    routerLogger.d("Added RoutePathListeners: ${function.hashCode.toString()}");
+    routerLogger.d('Added RoutePathListeners: ${function.hashCode.toString()}');
   }
 
   static removeRoutePathListeners(dynamic Function(RoutePath) function) {
     _routePathListeners.remove(function.hashCode.toString());
     routerLogger
-        .d("Removed RoutePathListeners: ${function.hashCode.toString()}");
+        .d('Removed RoutePathListeners: ${function.hashCode.toString()}');
   }
 
   static changePath(String path) {
@@ -65,10 +68,11 @@ class UniversalRouter {
   ///
   /// For the next version, add a setting for override 404 page.
   static final unknownPage = RouteInstance(
-      routePath: "404",
+      routePath: '404',
       title: 'Page not Found',
-      pageBuilder: (parameters, extraInformation) => error.loadLibrary().then(
-          (_) => error.UnknownScreen(errorMSG: extraInformation.toString())));
+      pageBuilder: (parameters, extraInformation) => error
+          .loadLibrary()
+          .then((_) => error.Unknown(errorMSG: extraInformation.toString())));
 
   ///
   /// This static method use for materialize the [UniversalRouter] class.

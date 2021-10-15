@@ -25,17 +25,17 @@ class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {
   }
 
   @override
-  RouteInformation restoreRouteInformation(RoutePath routePath) {
+  RouteInformation restoreRouteInformation(RoutePath configuration) {
     logger.d('restoreRouteInformation executed');
 
-    logger.i('restoreRouteInformation = ' + routePath.routeName);
+    logger.i('restoreRouteInformation = ' + configuration.routeName);
     logger.i('routePath.getRouteInstance.getRouteInformation().location = ' +
-        (routePath.getRouteInstance.getRouteInformation().location ?? ''));
+        (configuration.getRouteInstance.getRouteInformation().location ?? ''));
     logger.i('routePath.getRouteInstance.getRouteInformation().state = ' +
-        routePath.getRouteInstance.getRouteInformation().state.toString());
+        configuration.getRouteInstance.getRouteInformation().state.toString());
 
-    _routePathListeners.values.map((e) => e(routePath));
+    _routePathListeners.values.map((e) => e(configuration));
 
-    return routePath.getRouteInstance.getRouteInformation();
+    return configuration.getRouteInstance.getRouteInformation();
   }
 }

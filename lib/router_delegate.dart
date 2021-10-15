@@ -19,11 +19,13 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
 
   final PathHandler handler = PathHandler();
 
+  @override
   final GlobalKey<NavigatorState> navigatorKey = globalNavigatorKey;
 
+  @override
   RoutePath get currentConfiguration {
     logger.d('currentConfiguration get executed.');
-    final routPath = this._routePath ?? startPath ?? RoutePath();
+    final routPath = _routePath ?? startPath ?? RoutePath();
     logger.d('routPath.routeName: ' + routPath.routeName);
 
     return routPath;
@@ -48,26 +50,26 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
     pages.add(routePath.getRouteInstance.getPage());
     return Navigator(
       key: navigatorKey,
-      pages: this.pages,
+      pages: pages,
       onPopPage: (route, result) {
         final oldRoutePath = routePath.getRouteInstance;
         logger.i('Pop Executed = ' + oldRoutePath.routePath);
         logger.i('route.settings.name = ' + (route.settings.name ?? ''));
         if (!route.didPop(result)) return false;
         final newRoutePath = RoutePath(path: oldRoutePath.routePath);
-        this._navigatorRoutePath = newRoutePath;
-        this.setNewRoutePath(newRoutePath);
+        _navigatorRoutePath = newRoutePath;
+        setNewRoutePath(newRoutePath);
         return true;
       },
       onGenerateRoute: (setting) {
         logger.i(
             "onGenerateRoute RouteSettings: [name: ${setting.name ?? ''}, arguments: ${setting.arguments ?? ''}]");
-        if ((_routePath?.path ?? '-') == setting.name)
+        if ((_routePath?.path ?? '-') == setting.name) {
           return _routePath!.getRouteInstance.getPageRoute();
-        else {
+        } else {
           final newRouterPath = RoutePath(path: setting.name);
-          this._navigatorRoutePath = newRouterPath;
-          this.setNewRoutePath(newRouterPath);
+          _navigatorRoutePath = newRouterPath;
+          setNewRoutePath(newRouterPath);
           return newRouterPath.getRouteInstance.getPageRoute();
         }
       },
@@ -86,10 +88,10 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
     logger.d('_routePath.routeName = ' + (_routePath?.routeName ?? ''));
     logger.d('configuration.routeName = ' + configuration.routeName);
     logger.d('currentConfiguration = ' + currentConfiguration.routeName);
-    this._routePath = configuration;
-    if (this._navigatorRoutePath != this._routePath) {
-      this._navigatorRoutePath = this._routePath;
-      navigatorKey.currentState?.pushNamed(this._routePath?.path ?? '');
+    _routePath = configuration;
+    if (_navigatorRoutePath != _routePath) {
+      _navigatorRoutePath = _routePath;
+      navigatorKey.currentState?.pushNamed(_routePath?.path ?? '');
     }
     logger.d('update _routPath');
     logger.d('_routePath.routeName = ' + (_routePath?.routeName ?? ''));

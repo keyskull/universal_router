@@ -3,7 +3,7 @@ import 'package:universal_router/route.dart';
 
 void main() {
   RouteInstance(
-      routePath: '', title: 'Home', pageBuilder: (_, __) async => Home());
+      routePath: '', title: 'Home', pageBuilder: (_, __) async => const Home());
 
   runApp(MyApp());
 }

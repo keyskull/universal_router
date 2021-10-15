@@ -22,29 +22,29 @@ class RouteInstance {
             ? '/' + routePath
             : '/' + routePath + '/' + parameters,
         title = title ?? routePath {
-    _routeStack[this.path.substring(1)] = this;
+    _routeStack[path.substring(1)] = this;
   }
 
   createChildRouteInstance({String parameters = '', dynamic extraInformation}) {
-    return new RouteInstance(
-        routePath: this.routePath,
-        pageBuilder: this.pageBuilder,
-        title: this.title,
+    return RouteInstance(
+        routePath: routePath,
+        pageBuilder: pageBuilder,
+        title: title,
         parameters: parameters,
         extraInformation: extraInformation);
   }
 
   RouteInformation getRouteInformation() {
-    logger.d("getRouteInformation:" + path);
+    logger.d('getRouteInformation:' + path);
     return RouteInformation(location: path);
   }
 
-  bool remove() => _routeStack[this.path.substring(1)]?.remove() ?? false;
+  bool remove() => _routeStack[path.substring(1)]?.remove() ?? false;
 
   MaterialPage getPage() {
     logger.d('getPage executed');
-    logger.i("path:" + routePath);
-    logger.i("parameter:" + parameters);
+    logger.i('path:' + routePath);
+    logger.i('parameter:' + parameters);
     return MaterialPage(
         key: ValueKey(RouteData(
           path: path,
