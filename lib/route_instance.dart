@@ -8,9 +8,7 @@ class RouteInstance {
   final String parameters;
   final String path;
   final dynamic extraInformation;
-  late final widget = AsyncLoadPage(
-      future: pageBuilder(parameters, extraInformation)
-          .then((value) => _decorationLayer(child: value)));
+  final Widget widget;
 
   RouteInstance(
       {required this.routePath,
@@ -21,15 +19,18 @@ class RouteInstance {
       : path = parameters == ''
             ? '/' + routePath
             : '/' + routePath + '/' + parameters,
-        title = title ?? routePath {
+        title = title ?? routePath,
+        widget =
+            AsyncLoadPage(future: pageBuilder(parameters, extraInformation)) {
     _routeStack[path.substring(1)] = this;
   }
 
-  createChildRouteInstance({String parameters = '', dynamic extraInformation}) {
+  createChildRouteInstance(
+      {String parameters = '', String? title, dynamic extraInformation}) {
     return RouteInstance(
         routePath: routePath,
         pageBuilder: pageBuilder,
-        title: title,
+        title: title ?? this.title,
         parameters: parameters,
         extraInformation: extraInformation);
   }

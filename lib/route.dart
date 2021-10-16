@@ -21,19 +21,9 @@ final GlobalKey<NavigatorState> globalNavigatorKey =
 typedef PageBuilder = Future<Widget> Function(
     String? parameters, dynamic extraInformation);
 
-Widget nullDecorationLayer({required Widget child}) => Container(
-      child: child,
-    );
-
-Widget Function({required Widget child}) _decorationLayer = nullDecorationLayer;
-
 final Map<String, RouteInstance> _routeStack = {};
 
 class UniversalRouter {
-  static setDecorationLayer(
-          Widget Function({required Widget child}) newDecorationLayer) =>
-      _decorationLayer = newDecorationLayer;
-
   static addRoutePathListeners(dynamic Function(RoutePath) function) {
     _routePathListeners[function.hashCode.toString()] = function;
     routerLogger.d('Added RoutePathListeners: ${function.hashCode.toString()}');
