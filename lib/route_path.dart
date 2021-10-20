@@ -32,7 +32,8 @@ class RoutePath {
 
     if (_route == UniversalRouter.unknownPage) {
       _route = _route.createChildRouteInstance(
-          extraInformation: 'Page Not Found.\n Wrong path:  $path');
+          extraInformation: 'Page Not Found.\n Wrong path:  $path',
+          title: 'Page Not Found.');
     } else if (routeNameSplit.length > 1) {
       _route = _route.createChildRouteInstance(
           parameters: routeNameSplit.skip(1).join('/'));

@@ -18,9 +18,6 @@ final routerLogger = Logger(printer: CustomLogPrinter('Router'));
 final GlobalKey<NavigatorState> globalNavigatorKey =
     GlobalKey<NavigatorState>();
 
-typedef PageBuilder = Future<Widget> Function(
-    String? parameters, dynamic extraInformation);
-
 final Map<String, RouteInstance> _routeStack = {};
 
 class UniversalRouter {
