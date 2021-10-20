@@ -1,6 +1,6 @@
 name: universal_router
 description: This package is a implementation of Navigator 2.0. Supported Router Table concept.
-version: 0.2.5
+version: 0.3.1
 homepage: https://cullen.ml
 repository: https://github.com/keyskull/universal_router
 environment:

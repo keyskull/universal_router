@@ -1,3 +1,7 @@
+## [0.3.1]
+- Added childPageTitleBuilder callback function in RouterInstance class
+  for customizing the title of child page;
+  
 ## [0.2.5]
 - Fixed unable pop page through browser backward method.
 - Standardized RoutePath.path to all start with '/'.

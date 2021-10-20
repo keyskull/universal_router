@@ -3,12 +3,25 @@ part of 'route.dart';
 typedef PageBuilder = Future<Widget> Function(
     String? parameters, dynamic extraInformation);
 
+/// RouteInstance contains all the content of the exact page.
+///
+/// RouteInstance is a accessible instance through [RoutePath]
+/// to show out the page content.
+///
 class RouteInstance {
   final logger = Logger(printer: CustomLogPrinter('RouteInstance'));
   final String routePath;
   final PageBuilder pageBuilder;
+
+  ///
+  /// A callback function in RouterInstance class
+  /// for customizing the title of child page.
   final String Function(String parameters, String parentTitle)
       childPageTitleBuilder;
+
+  ///
+  /// A variable as the original route page's title.
+  ///
   final String title;
   final String parameters;
   final String path;
