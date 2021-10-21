@@ -85,18 +85,25 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
       routeInformationProvider.routerReportsNewRouteInformation(
           configuration.getRouteInstance.getRouteInformation());
     }
-    logger.d('_routePath.routeName = ' + (_routePath?.routeName ?? ''));
-    logger.d('configuration.routeName = ' + configuration.routeName);
-    logger.d('currentConfiguration = ' + currentConfiguration.routeName);
+
     _routePath = configuration;
+
+    ///
+    /// Prevent path has change but router has move to new page.
+    ///
     if (_navigatorRoutePath != _routePath) {
       _navigatorRoutePath = _routePath;
       navigatorKey.currentState?.pushNamed(_routePath?.path ?? '');
     }
-    logger.d('update _routPath');
-    logger.d('_routePath.routeName = ' + (_routePath?.routeName ?? ''));
-    logger.d('currentConfiguration = ' + currentConfiguration.routeName);
 
+    // logger.i('_routePathListeners = ' + _routePathListeners.toString());
+
+    ///
+    ///  execute listeners
+    ///
+    for (var e in _routePathListeners.values) {
+      e(configuration);
+    }
     notifyListeners();
   }
 }

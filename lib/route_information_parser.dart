@@ -34,8 +34,6 @@ class RouteInformationParserInherit extends RouteInformationParser<RoutePath> {
     logger.i('routePath.getRouteInstance.getRouteInformation().state = ' +
         configuration.getRouteInstance.getRouteInformation().state.toString());
 
-    _routePathListeners.values.map((e) => e(configuration));
-
     return configuration.getRouteInstance.getRouteInformation();
   }
 }
