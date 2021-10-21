@@ -1,6 +1,9 @@
+## [0.3.2]
+- Fixed path listener execute problem.
+
 ## [0.3.1]
 - Added childPageTitleBuilder callback function in RouterInstance class
-  for customizing the title of child page;
+  for customizing the title of child page.
   
 ## [0.2.5]
 - Fixed unable pop page through browser backward method.
