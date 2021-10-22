@@ -40,6 +40,11 @@ class UniversalRouter {
   static pop() => globalNavigatorKey.currentState!.pushNamed(
       _routerDelegate.currentConfiguration.getRouteInstance.routePath);
 
+  @Deprecated('''
+  RouteData is not gonna update when we have change the route path.
+  Now, the RouteData only have the original page's information
+  as the first screen you run in to the app.
+  ''')
   static RouteData? getCurrentRouteData() =>
       (globalNavigatorKey.currentState?.widget.pages.first.key as ValueKey?)
           ?.value as RouteData?;
