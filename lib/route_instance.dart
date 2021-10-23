@@ -46,14 +46,17 @@ class RouteInstance {
     _routeStack[path.substring(1)] = this;
   }
 
-  createChildRouteInstance(
+  RouteInstance createChildRouteInstance(
       {String parameters = '', String? title, dynamic extraInformation}) {
-    return RouteInstance(
-        routePath: routePath,
-        pageBuilder: pageBuilder,
-        title: title ?? childPageTitleBuilder(parameters, this.title),
-        parameters: parameters,
-        extraInformation: extraInformation);
+    return parameters == ''
+        ? _routeStack[routePath]!
+        : _routeStack[routePath + '/' + parameters] ??
+            RouteInstance(
+                routePath: routePath,
+                pageBuilder: pageBuilder,
+                title: title ?? childPageTitleBuilder(parameters, this.title),
+                parameters: parameters,
+                extraInformation: extraInformation);
   }
 
   RouteInformation getRouteInformation() {

@@ -21,7 +21,7 @@ final GlobalKey<NavigatorState> globalNavigatorKey =
 final Map<String, RouteInstance> _routeStack = {};
 
 class UniversalRouter {
-  static addRoutePathListeners(dynamic Function(RoutePath) function) {
+  static addRoutePathChangingListeners(dynamic Function(RoutePath) function) {
     _routePathListeners[function.hashCode.toString()] = function;
     routerLogger.d('Added RoutePathListeners: ${function.hashCode.toString()}');
   }
@@ -35,6 +35,10 @@ class UniversalRouter {
   static changePath(String path) {
     routerLogger.i('changePath: ' + path);
     globalNavigatorKey.currentState!.pushNamed(path);
+  }
+
+  static RouteInstance getRouteInstance(String path) {
+    return RoutePath(path: path).getRouteInstance;
   }
 
   static pop() => globalNavigatorKey.currentState!.pushNamed(
