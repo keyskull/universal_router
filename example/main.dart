@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  final universalRouter = UniversalRouter.initialize();
+  // final universalRouter = UniversalRouter.initialize();
 
   MyApp({Key? key}) : super(key: key);
 
@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerDelegate: universalRouter.routerDelegate,
-      routeInformationProvider: universalRouter.routeInformationProvider,
-      routeInformationParser: universalRouter.routerInformationParser,
+      routerDelegate: UniversalRouter.routerDelegate,
+      routeInformationProvider: UniversalRouter.routeInformationProvider,
+      routeInformationParser: UniversalRouter.routerInformationParser,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.

@@ -65,7 +65,9 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
         logger.i(
             "onGenerateRoute RouteSettings: [name: ${setting.name ?? ''}, arguments: ${setting.arguments ?? ''}]");
         if ((_routePath?.path ?? '-') == setting.name) {
-          return _routePath!.getRouteInstance.getPageRoute();
+          logger.i('onGenerateRoute got a same path.');
+
+          return currentConfiguration.getRouteInstance.getPageRoute();
         } else {
           final newRouterPath = RoutePath(path: setting.name);
           _navigatorRoutePath = newRouterPath;

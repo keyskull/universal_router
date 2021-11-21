@@ -13,27 +13,25 @@ part 'route_instance.dart';
 part 'route_path.dart';
 part 'router_delegate.dart';
 
-final routerLogger = Logger(printer: CustomLogPrinter('Router'));
-
 final GlobalKey<NavigatorState> globalNavigatorKey =
     GlobalKey<NavigatorState>();
 
 final Map<String, RouteInstance> _routeStack = {};
 
 class UniversalRouter {
+  static final _logger = Logger(printer: CustomLogPrinter('Router'));
   static addRoutePathChangingListeners(dynamic Function(RoutePath) function) {
     _routePathListeners[function.hashCode.toString()] = function;
-    routerLogger.d('Added RoutePathListeners: ${function.hashCode.toString()}');
+    _logger.d('Added RoutePathListeners: ${function.hashCode.toString()}');
   }
 
   static removeRoutePathListeners(dynamic Function(RoutePath) function) {
     _routePathListeners.remove(function.hashCode.toString());
-    routerLogger
-        .d('Removed RoutePathListeners: ${function.hashCode.toString()}');
+    _logger.d('Removed RoutePathListeners: ${function.hashCode.toString()}');
   }
 
   static changePath(String path) {
-    routerLogger.i('changePath: ' + path);
+    _logger.i('changePath: ' + path);
     globalNavigatorKey.currentState!.pushNamed(path);
   }
 
@@ -42,7 +40,7 @@ class UniversalRouter {
   }
 
   static pop() => globalNavigatorKey.currentState!.pushNamed(
-      _routerDelegate.currentConfiguration.getRouteInstance.routePath);
+      routerDelegate.currentConfiguration.getRouteInstance.routePath);
 
   @Deprecated('''
   RouteData is not gonna update when we have change the route path.
@@ -55,7 +53,7 @@ class UniversalRouter {
 
   ///
   /// to access current router table status;
-  get getRegisteredRoute => _routeStack;
+  static get getRegisteredRoute => _routeStack;
 
   ///
   /// This is a pre-registered Route as the 404 page.
@@ -70,16 +68,11 @@ class UniversalRouter {
           .loadLibrary()
           .then((_) => error.Unknown(errorMSG: extraInformation.toString())));
 
-  ///
-  /// This static method use for materialize the [UniversalRouter] class.
-  ///
-  static UniversalRouter initialize() => UniversalRouter();
+  static final RouterDelegateInherit routerDelegate = RouterDelegateInherit();
+  static final routerInformationParser = routerDelegate.routerInformationParser;
+  static final routeInformationProvider =
+      routerDelegate.routeInformationProvider;
 
-  static final RouterDelegateInherit _routerDelegate = RouterDelegateInherit();
-
-  final RouterDelegateInherit routerDelegate = _routerDelegate;
-  late final routerInformationParser = routerDelegate.routerInformationParser;
-  late final routeInformationProvider = routerDelegate.routeInformationProvider;
-
-  RoutePath get currentConfiguration => routerDelegate.currentConfiguration;
+  static RoutePath get currentConfiguration =>
+      routerDelegate.currentConfiguration;
 }
