@@ -47,7 +47,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
       label: routePath.getRouteInstance.title,
       primaryColor: 0,
     ));
-    pages.add(routePath.getRouteInstance.getPage());
+    pages.add(const MaterialPage(child: SizedBox.shrink()));
     return Navigator(
       key: navigatorKey,
       pages: pages,
