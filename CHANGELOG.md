@@ -1,3 +1,6 @@
+## [0.3.3]
+- Optimized performance of showing. (Minimize MaterialPage)
+
 ## [0.3.2]
 - Fixed path listener execute problem.
 
