@@ -1,10 +1,10 @@
 import 'package:cullen_utilities/custom_log_printer.dart';
+import 'package:cullen_utilities/ui/views/pages/unknown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 
-import 'pages/async_loading_page.dart';
-import 'ui/views/screen/unknown.dart' deferred as error;
+import 'ui/views/pages/async_loading_page.dart';
 
 part 'path_handler.dart';
 part 'route_data.dart';
@@ -64,9 +64,8 @@ class UniversalRouter {
   static final unknownPage = RouteInstance(
       routePath: '404',
       title: 'Page not Found',
-      pageBuilder: (parameters, extraInformation) => error
-          .loadLibrary()
-          .then((_) => error.Unknown(errorMSG: extraInformation.toString())));
+      pageBuilder: (parameters, extraInformation) =>
+          Future.value(Unknown(errorMSG: extraInformation.toString())));
 
   static final RouterDelegateInherit routerDelegate = RouterDelegateInherit();
   static final routerInformationParser = routerDelegate.routerInformationParser;

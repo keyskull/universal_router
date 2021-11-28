@@ -11,10 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   logger: ^1.1.0
-  cullen_utilities: ^0.1.1
+  cullen_utilities:
+      path: ../cullen_utilities
 
 #dash-overflow.net
 #  provider: ^5.0.0
+
 
 dev_dependencies:
   flutter_test:
