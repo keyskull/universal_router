@@ -35,6 +35,10 @@ class UniversalRouter {
     globalNavigatorKey.currentState!.pushNamed(path);
   }
 
+  static String getPath() {
+    return routerDelegate._routePath?.path ?? '';
+  }
+
   static RouteInstance getRouteInstance(String path) {
     return RoutePath(path: path).getRouteInstance;
   }
