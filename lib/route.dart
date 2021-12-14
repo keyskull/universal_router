@@ -36,7 +36,11 @@ class UniversalRouter {
   }
 
   static String getPath() {
-    return routerDelegate._routePath?.path ?? '';
+    return routerDelegate._routePath?.path ?? '/';
+  }
+
+  static String getName() {
+    return routerDelegate._routePath?.routeName ?? '/';
   }
 
   static RouteInstance getRouteInstance(String path) {

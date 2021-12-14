@@ -85,7 +85,7 @@ class RouterDelegateInherit extends RouterDelegate<RoutePath>
       logger.i('set new routePath = ' + configuration.routeName);
       handler.changeRoutePath(configuration);
       routeInformationProvider.routerReportsNewRouteInformation(
-          configuration.getRouteInstance.getRouteInformation());
+          configuration.getRouteInstance.getRouteInformation(), type: RouteInformationReportingType.neglect);
     }
 
     _routePath = configuration;
