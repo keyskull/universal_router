@@ -14,7 +14,7 @@ dependencies:
   logger: ^1.1.0
   cullen_utilities:
     hosted: https://artalaxies.jfrog.io/artifactory/api/pub/artalaxies-pub-dev
-
+    version: ^0.1.2
 #dash-overflow.net
 #  provider: ^5.0.0
 
