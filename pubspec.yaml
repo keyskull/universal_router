@@ -3,16 +3,17 @@ description: This package is a implementation of Navigator 2.0. Supported Router
 version: 0.3.3
 homepage: https://cullen.ml
 repository: https://github.com/keyskull/universal_router
+publish_to: https://artalaxies.jfrog.io/artifactory/api/pub/artalxies-pub
+
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.1.0"
+  sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   logger: ^1.1.0
   cullen_utilities:
-      path: ../cullen_utilities
+    hosted: https://artalaxies.jfrog.io/artifactory/api/pub/artalaxies-pub-dev
 
 #dash-overflow.net
 #  provider: ^5.0.0
